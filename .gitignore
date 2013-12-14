@@ -1,0 +1,10 @@
+out
+build
+gant-build
+lib
+.classpath
+.project
+.gradle
+.settings
+.idea
+*.iml
