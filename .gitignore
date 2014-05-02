@@ -7,4 +7,6 @@ lib
 .gradle
 .settings
 .idea
+*.ipr
+*.iws
 *.iml
