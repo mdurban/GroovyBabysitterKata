@@ -25,4 +25,19 @@ class BabysitterTest extends Specification {
             10        | 12      | 9       | 16
             10        | 13      | 9       | 24
     }
+
+    def "babysitter gets paid sixteen dollars after midnight"() {
+        expect:
+            Babysitter.calculatePay(startTime, endTime, bedTime) == payment
+
+        where:
+            startTime | endTime | bedTime | payment
+            12        | 13       | 9       | 16
+            12        | 14       | 9       | 32
+            12        | 15       | 9       | 48
+    }
+
+//    def "babysitter gets paid eight dollars between bedtime and midnight and sixteen dollars after midnight"() {
+//
+//    }
 }
