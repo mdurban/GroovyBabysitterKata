@@ -1,10 +1,11 @@
-import spock.lang.Specification
+import spock.lang.*
 
 class BabysitterTest extends Specification {
 
+    @Unroll
     def "babysitter gets paid twelve dollars for each hour of work before bedtime"() {
         expect:
-            Babysitter.startJob(startTime, endTime, bedTime) == payment
+            Babysitter.calculatePay(startTime, endTime, bedTime) == payment
 
         where:
             startTime | endTime | bedTime | payment
@@ -12,12 +13,16 @@ class BabysitterTest extends Specification {
             5         | 7       | 9       | 24
             5         | 8       | 9       | 36
     }
-    
-    def "babysitter gets paid eight dollars after bedtime before midnight"() {
-        given:
-        def hourOfPay = Babysitter.startJob(10, 11, 9)
 
+    @Unroll
+    def "babysitter gets paid eight dollars for each hour after bedtime before midnight"() {
         expect:
-        hourOfPay == 8
+            Babysitter.calculatePay(startTime, endTime, bedTime) == payment
+
+        where:
+            startTime | endTime | bedTime | payment
+            10        | 11      | 9       | 8
+            10        | 12      | 9       | 16
+            10        | 13      | 9       | 24
     }
 }
