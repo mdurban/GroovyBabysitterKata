@@ -1,11 +1,6 @@
 class Babysitter {
 
     static def startJob(startTime, endTime, bedTime) {
-        if (endTime > bedTime) {
-            8
-        } else {
-            (endTime - startTime) * 12
-        }
-
+        endTime > bedTime ? 8 : (endTime - startTime) * 12
     }
 }
