@@ -2,6 +2,10 @@ import spock.lang.*
 
 class BabysitterTest extends Specification {
 
+    private static final def PRE_BEDTIME_PAY = 12
+    private static final def PRE_MIDNIGHT_PAY = 8
+    private static final def POST_MIDNIGHT_PAY = 16
+
     @Unroll
     def "babysitter gets paid twelve dollars for each hour of work before bedtime"() {
         expect:
@@ -9,9 +13,9 @@ class BabysitterTest extends Specification {
 
         where:
             startTime | endTime | bedTime | payment
-            5         | 6       | 9       | 12
-            5         | 7       | 9       | 24
-            5         | 8       | 9       | 36
+            5         | 6       | 9       | PRE_BEDTIME_PAY
+            5         | 7       | 9       | 2*PRE_BEDTIME_PAY
+            5         | 8       | 9       | 3*PRE_BEDTIME_PAY
     }
 
     @Unroll
@@ -21,9 +25,9 @@ class BabysitterTest extends Specification {
 
         where:
             startTime | endTime | bedTime | payment
-            8         | 9       | 7       | 8
-            8         | 10      | 7       | 16
-            8         | 11      | 7       | 24
+            8         | 9       | 7       | PRE_MIDNIGHT_PAY
+            8         | 10      | 7       | 2*PRE_MIDNIGHT_PAY
+            8         | 11      | 7       | 3*PRE_MIDNIGHT_PAY
     }
 
     def "babysitter gets paid twelve dollars before bedtime and eight dollars after bedtime before midnight"() {
@@ -31,7 +35,7 @@ class BabysitterTest extends Specification {
             def payment = Babysitter.calculatePay(7, 9, 8)
 
         then:
-            payment == 20
+            payment == PRE_BEDTIME_PAY + PRE_MIDNIGHT_PAY
     }
 
     @Unroll
@@ -41,9 +45,9 @@ class BabysitterTest extends Specification {
 
         where:
             startTime | endTime | bedTime | payment
-            12        | 13       | 9       | 16
-            12        | 14       | 9       | 32
-            12        | 15       | 9       | 48
+            12        | 13       | 9       | POST_MIDNIGHT_PAY
+            12        | 14       | 9       | 2*POST_MIDNIGHT_PAY
+            12        | 15       | 9       | 3*POST_MIDNIGHT_PAY
     }
 
     def "babysitter gets paid eight dollars between bedtime and midnight and sixteen dollars after midnight"() {
@@ -51,14 +55,14 @@ class BabysitterTest extends Specification {
             def payment = Babysitter.calculatePay(11, 13, 8)
 
         then:
-            payment == 24
+            payment == PRE_MIDNIGHT_PAY + POST_MIDNIGHT_PAY
     }
 
-    def "stuff"() {
+    def "babysitter gets paid twelve dollars before bedtime, eight dollars before midnight, and sixteen dollars after midnight"() {
         when:
             def payment = Babysitter.calculatePay(8, 13, 10)
 
         then:
-            payment == (24 + 16 + 16)
+            payment == (2*PRE_BEDTIME_PAY + 2*PRE_MIDNIGHT_PAY + 1*POST_MIDNIGHT_PAY)
     }
 }
