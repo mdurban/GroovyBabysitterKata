@@ -58,6 +58,7 @@ class BabysitterTest extends Specification {
             payment == PRE_MIDNIGHT_PAY + POST_MIDNIGHT_PAY
     }
 
+    @Unroll
     def "babysitter gets paid twelve dollars before bedtime, eight dollars before midnight, and sixteen dollars after midnight"() {
         expect:
         Babysitter.calculatePay(startTime, endTime, bedTime) == payment
