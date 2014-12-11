@@ -8,7 +8,6 @@ class Babysitter {
     static def calculatePay(startTime, endTime, bedTime) {
         def payment = 0
 
-        // Calculate each hour independently
         for (def currentTime = startTime; currentTime < endTime; currentTime ++) {
             if (currentTime < bedTime) {
                 payment += PRE_BEDTIME_PAY
