@@ -1,13 +1,19 @@
 class Babysitter {
 
+    private static final def MIDNIGHT = 12
+
     static def calculatePay(startTime, endTime, bedTime) {
-        def totalHoursWorked = endTime - startTime
         def payment = 0
-        if (startTime < bedTime) {
-            payment += endTime < bedTime ? totalHoursWorked * 12 : (bedTime - startTime) * 12
-        }
-        if (bedTime < endTime) {
-            payment += startTime < bedTime ? (endTime - bedTime) * 8 : totalHoursWorked * 8
+
+        // Calculate each hour independently
+        for (def currentTime = startTime; currentTime < endTime; currentTime ++) {
+            if (currentTime < bedTime) {
+                payment += 12
+            } else if (currentTime < MIDNIGHT) {
+                payment += 8
+            } else {
+                payment += 16
+            }
         }
         payment
     }
