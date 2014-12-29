@@ -45,14 +45,14 @@ class BabysitterTest extends Specification {
 
         where:
             startTime | endTime | bedTime | payment
-            12        | 13       | 9       | POST_MIDNIGHT_PAY
-            12        | 14       | 9       | 2*POST_MIDNIGHT_PAY
-            12        | 15       | 9       | 3*POST_MIDNIGHT_PAY
+            12        | 1        | 9       | POST_MIDNIGHT_PAY
+            12        | 2        | 9       | 2*POST_MIDNIGHT_PAY
+            12        | 3        | 9       | 3*POST_MIDNIGHT_PAY
     }
 
     def "babysitter gets paid eight dollars between bedtime and midnight and sixteen dollars after midnight"() {
         when:
-            def payment = Babysitter.calculatePay(11, 13, 8)
+            def payment = Babysitter.calculatePay(11, 1, 8)
 
         then:
             payment == PRE_MIDNIGHT_PAY + POST_MIDNIGHT_PAY
@@ -65,8 +65,8 @@ class BabysitterTest extends Specification {
 
         where:
             startTime | endTime | bedTime | payment
-            8         | 13       | 10     | 2*PRE_BEDTIME_PAY + 2*PRE_MIDNIGHT_PAY + POST_MIDNIGHT_PAY
-            7         | 14       | 10     | 3*PRE_BEDTIME_PAY + 2*PRE_MIDNIGHT_PAY + 2*POST_MIDNIGHT_PAY
-            6         | 15       | 10     | 4*PRE_BEDTIME_PAY + 2*PRE_MIDNIGHT_PAY + 3*POST_MIDNIGHT_PAY
+            8         | 1        | 10     | 2*PRE_BEDTIME_PAY + 2*PRE_MIDNIGHT_PAY + POST_MIDNIGHT_PAY
+            7         | 2        | 10     | 3*PRE_BEDTIME_PAY + 2*PRE_MIDNIGHT_PAY + 2*POST_MIDNIGHT_PAY
+            6         | 3        | 10     | 4*PRE_BEDTIME_PAY + 2*PRE_MIDNIGHT_PAY + 3*POST_MIDNIGHT_PAY
     }
 }
