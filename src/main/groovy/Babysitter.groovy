@@ -5,12 +5,12 @@ class Babysitter {
     private static final def PRE_MIDNIGHT_PAY = 8
     private static final def POST_MIDNIGHT_PAY = 16
     
-    private static def map = [1:13, 2:14, 3:15, 4:16]
+    private static def map = [1:13, 2:14, 3:15, 4:16].withDefault{ it }
 
     static def calculatePay(startTime, endTime, bedTime) {
         def payment = 0
-        startTime = map.get(startTime, startTime)
-        endTime = map.get(endTime, endTime)
+        startTime = map.get(startTime)
+        endTime = map.get(endTime)
 
         (startTime..<endTime).each {
             if (it < bedTime) {
